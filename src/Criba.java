@@ -1,12 +1,25 @@
+/**
+ * @author Roger Roy Sánchez Fernández
+ * @version 1.0
+ * @see <a href = "https://www.youtube.com/watch?v=GST7EhThqpQ">Algoritmo Criba de Eratóstenes</a>
+ */
+
 import java.util.Scanner;
 
 public class Criba {
-    // Generar números primos de 1 a max
+    /**
+     *Se definen 3 variables estáticas
+     */
     public static final int tamanioInicial = 2;
     public static final boolean verdadero = true;
     public static final boolean falso = false;
 
 
+    /**
+     * Devuelve una tabla con los números primos desde cero hasta el número ingresado como parámetro max
+     * @param max Número máximo del rango desde cero
+     * @return Devuelve una tabla con números primos
+     */
     public static int[] generarPrimos(int max) {
         if (max >= 2) {
             // Declaraciones
@@ -28,15 +41,25 @@ public class Criba {
         }
     }
 
+    /**
+     * Inicializar una tabla descartando el cero y el 1 como número primo.
+     * @param dim Dimensión de la tabla.
+     * @return Devuelve una tabla con los 2 primeros números descartados como primo.
+     */
     public static boolean [] inicializarArray (int dim){
         boolean[] esPrimo = new boolean[dim];
         for (int i = 0; i < dim; i++)
             esPrimo[i] = verdadero;
-        // Eliminar el 0  y el 1, que no son primos
+        // Eliminar el cero  y el 1, que no son primos.
         esPrimo[0] = esPrimo[1] = falso;
         return esPrimo;
     }
 
+    /**
+     * Se aplica el algoritmo Criba de Eratóstenes para obtener los números primos restantes.
+     * @param dim Dimensión de la tabla.
+     * @param esPrimo Tabla con los 2 primeros números descartados como primo.
+     */
     private static void criba (int dim, boolean[] esPrimo) {
         for (int i = tamanioInicial; i < Math.sqrt(dim) + 1; i++) {
             if (esPrimo[i]) {
@@ -47,6 +70,28 @@ public class Criba {
         }
     }
 
+    /**
+     * Cuenta la cantidad de números primos que obtenemos.
+     * @param dim Dimensión de la tabla.
+     * @param esPrimo Tabla con las posiciones True = Números primos y False = No primos
+     * @return Devuelve la cantidad de números primos que hay en la tabla esPrimo.
+     */
+    private static int cuentaPrimos (int dim, boolean[] esPrimo) {
+        int cuenta = 0;
+        for (int i = 0; i < dim; i++) {
+            if (esPrimo[i])
+                cuenta++;
+        }
+        return cuenta;
+    }
+
+    /**
+     * Crea una tabla con los números primos obtenidos.
+     * @param cuenta Número de números primos existentes.
+     * @param dim Dimensión de la tabla.
+     * @param esPrimo Tabla con las posiciones True = Números primos y False = No primos
+     * @return Devuelve una nueva tabla primos con los números primos obtenidos
+     */
     public static int [] rellenarPrimos(int cuenta, int dim, boolean[] esPrimo) {
         int i;
         int j;
@@ -58,18 +103,9 @@ public class Criba {
         return primos;
     }
 
-    private static int cuentaPrimos (int dim, boolean[] esPrimo) {
-        int cuenta = 0;
-        for (int i = 0; i < dim; i++) {
-            if (esPrimo[i])
-                cuenta++;
-        }
-        return cuenta;
-    }
-
     public static void main(String[] args) {
         Scanner teclado=new Scanner(System.in);
-        System.out.println("Introduce el número para la criba de Erastótenes:");
+        System.out.println("Introduce el número para la criba de Eratóstenes:");
         int dato=teclado.nextInt();
         int vector[]=new int[dato];
         System.out.println("\nVector inicial hasta: " + dato);
